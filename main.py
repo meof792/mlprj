@@ -1,11 +1,14 @@
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.decomposition import PCA
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 from tabulate import tabulate
+import seaborn as sns
 
 # Đọc dữ liệu
 data = pd.read_csv("data.csv", keep_default_na=False)
@@ -15,7 +18,6 @@ columns_list = [[index + 1, column] for index, column in enumerate(data.columns.
 print("Danh sách các cột trong dữ liệu:")
 print(tabulate(columns_list, headers=["STT", "Tên cột"], tablefmt="pretty"))
 print()
-
 
 print("Thông tin thống kê dữ liệu:")
 print(data.info())
@@ -48,34 +50,107 @@ data_encoded = pd.get_dummies(data, columns=categorical_cols)
 X = data_encoded.drop("heart_attack", axis=1)
 y = data_encoded["heart_attack"]
 
-# ================================
-# CHỌN GIẢM CHIỀU DỮ LIỆU (PCA / LDA / None)
-# ================================
-reduction_method = input("Chọn phương pháp giảm chiều (PCA/LDA/None): ").strip().lower()
+# Chuẩn hóa dữ liệu
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
 
-if reduction_method == "pca":
-    pca = PCA(n_components=0.8)  # Tự động chọn số chiều giữ 95% phương sai
-    X = pca.fit_transform(X)
-    print(f"PCA giữ lại {X.shape[1]} chiều (để giữ lại 95% phương sai).")
 
-    # Vẽ biểu đồ phương sai tích lũy
-    plt.figure(figsize=(8, 5))
-    explained_variance = PCA().fit(X).explained_variance_ratio_.cumsum()
-    plt.plot(explained_variance, marker='o')
-    plt.axhline(y=0.95, color='r', linestyle='--')
-    plt.title("Cumulative Explained Variance - PCA")
-    plt.xlabel("Số chiều giữ lại")
-    plt.ylabel("Tỷ lệ phương sai tích lũy")
-    plt.grid(True)
-    plt.show()
+input("\nNhấn để tiến hành giảm chiều lần lượt bằng PCA... ").strip().lower()
 
-elif reduction_method == "lda":
-    lda = LDA(n_components=1)  # Vì có 2 lớp => tối đa là 1
-    X = lda.fit_transform(X, y)
-    print(f"LDA giảm chiều còn: {X.shape[1]} chiều.")
+# Phương pháp PCA
+pca = PCA(n_components=0.95)  # Tự động chọn số chiều giữ lại 95% phương sai
+X_reduced_PCA = pca.fit_transform(X_scaled)
+print(f"\nPCA giữ lại {X_scaled.shape[1]} chiều (để giữ lại 95% phương sai).")
+# Hiển thị phương sai giải thích của PCA
+print(f"\nPhương sai giải thích của PCA:")
+for i, var in enumerate(pca.explained_variance_ratio_):
+    print(f"Component {i+1}: {var:.4f}")
+print(f"Tổng phương sai giải thích: {pca.explained_variance_ratio_.sum():.4f} (95%)")
 
-else:
-    print("Không giảm chiều dữ liệu.")
+# Vẽ biểu đồ phương sai tích lũy
+plt.figure(figsize=(8, 5))
+explained_variance = pca.explained_variance_ratio_.cumsum()
+plt.plot(explained_variance, marker='o')
+plt.axhline(y=0.95, color='r', linestyle='--')
+plt.title("Cumulative Explained Variance - PCA")
+plt.xlabel("Số chiều giữ lại")
+plt.ylabel("Tỷ lệ phương sai tích lũy")
+plt.grid(True)
+plt.show()
+
+# Trực quan hóa mối quan hệ giữa 2 thành phần chính với đầu ra (y)
+plt.figure(figsize=(8, 6))
+
+# Vẽ scatter plot giữa hai thành phần chính đầu tiên và phân loại theo nhãn y
+scatter = plt.scatter(X_reduced_PCA[:, 0], X_reduced_PCA[:, 1], c=y, cmap='viridis', edgecolor='k', s=100)
+
+# Thêm tiêu đề và nhãn
+plt.title("PCA: Mối quan hệ giữa các thành phần chính và đầu ra")
+plt.xlabel("Thành phần chính 1")
+plt.ylabel("Thành phần chính 2")
+
+# Thêm thanh màu để thể hiện các nhãn lớp
+plt.colorbar(scatter, label='Nhãn lớp')
+
+# Hiển thị đồ thị
+plt.grid(True)
+plt.show()
+
+# Kiểm tra tương quan tuyến tính giữa thành phần PCA (2 chiều) và nhãn lớp (y)
+# Tính hệ số tương quan Pearson giữa mỗi thành phần PCA và nhãn lớp y
+correlation_pca1 = np.corrcoef(X_reduced_PCA[:, 0], y)[0, 1]
+print(f"\nHệ số tương quan Pearson giữa thành phần PCA 1 và nhãn lớp: {correlation_pca1:.4f}")
+correlation_pca2 = np.corrcoef(X_reduced_PCA[:, 1], y)[0, 1]
+print(f"Hệ số tương quan Pearson giữa thành phần PCA 2 và nhãn lớp: {correlation_pca2:.4f}")
+
+input("\nNhấn để tiến hành giảm chiều lần lượt bằng LDA... ").strip().lower()
+
+# Phương pháp LDA
+lda = LDA(n_components=1)  # Vì có 2 lớp => tối đa là 1
+X_reduced_LDA = lda.fit_transform(X_scaled, y)
+print(f"\nLDA giảm chiều còn: {X_reduced_LDA.shape[1]} chiều.")
+print(f"\nPhương sai giải thích của LDA:")
+for i, var in enumerate(lda.explained_variance_ratio_):
+    print(f"Component {i+1}: {var:.4f}")
+print(f"Tổng phương sai giải thích: {lda.explained_variance_ratio_.sum():.4f}")
+
+# Vẽ biểu đồ phương sai tích lũy (LDA chỉ có 1 chiều)
+plt.figure(figsize=(8, 5))
+explained_variance = lda.explained_variance_ratio_
+plt.bar(range(1), explained_variance, color='b')
+plt.title("Explained Variance - LDA")
+plt.xlabel("Số chiều")
+plt.ylabel("Tỷ lệ phương sai giải thích")
+plt.show()
+
+plt.figure(figsize=(8, 6))
+
+# Vẽ scatter plot giữa thành phần LDA (1 chiều) và nhãn lớp y
+scatter = plt.scatter(X_reduced_LDA, y, c=y, cmap='viridis', edgecolor='k', s=100)
+
+# Thêm tiêu đề và nhãn
+plt.title("LDA: Mối quan hệ giữa thành phần LDA và đầu ra")
+plt.xlabel("Thành phần LDA")
+plt.ylabel("Nhãn lớp (Heart Attack)")
+
+# Thêm thanh màu để thể hiện các nhãn lớp
+plt.colorbar(scatter, label='Nhãn lớp')
+
+# Hiển thị đồ thị
+plt.grid(True)
+plt.show()
+
+# Kiểm tra tương quan tuyến tính giữa thành phần LDA và nhãn lớp (y)
+# Tính hệ số tương quan Pearson giữa thành phần LDA và nhãn lớp
+correlation_lda = np.corrcoef(X_reduced_LDA.T, y)[0, 1]
+print(f"\nHệ số tương quan Pearson giữa thành phần LDA và nhãn lớp: {correlation_lda:.4f}")
+
+## So sánh giữa PCA và LDA
+print("\nSo sánh giữa PCA và LDA:")
+print(f"Phương sai giải thích PCA: {pca.explained_variance_ratio_.sum()} (95%)")
+print(f"Phương sai giải thích LDA: {lda.explained_variance_ratio_.sum()}")
+
+input("\nNhấn để tiến hành huần luyện mô hình Naive Bayes... ")
 
 # Chia train/test
 X_train, X_test, y_train, y_test = train_test_split(
