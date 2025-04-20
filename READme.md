@@ -1,18 +1,13 @@
-1. tải extension python
-2. chạy các lệnh sau trong terminal
+
+1. chạy các lệnh để cài thư viện
 - pip install tabulate
 - pip install pandas scikit-learn matplotlib
 - pip install seaborn
 
-Hệ số tương quan Pearson (r) đo lường mức độ mối quan hệ tuyến tính giữa hai biến.
-r = 1: Mối quan hệ hoàn toàn dương (tuyến tính).
+2. hướng dẫn data:
+- truy cập link sau để tải: https://drive.google.com/file/d/1HGHjiiXvtnz2Dh3szU0gbJP0QqPn58nX/view?usp=sharing
+- file tải về bắt buộc phải có tên data.csv
+- di chuyển file .csv vào project (cùng cấp với file main.ipynb)
 
-r = -1: Mối quan hệ hoàn toàn âm (tuyến tính).
-
-r = 0: Không có mối quan hệ tuyến tính.
-
-r = 0.5 - 0.7: Mối quan hệ vừa phải, có thể được coi là có tương quan vừa phải.
-
-r = 0.7 - 0.9: Mối quan hệ mạnh mẽ.
-
-r > 0.9: Mối quan hệ rất mạnh mẽ.
+3. tiến hành chạy code
+- sau khi cài thư viện và tải data, tiền hánh run các cell code
