@@ -1,3 +1,4 @@
+age,gender,region,income_level,hypertension,diabetes,cholesterol_level,obesity,waist_circumference,family_history,smoking_status,alcohol_consumption,physical_activity,dietary_habits,air_pollution_exposure,stress_level,sleep_hours,blood_pressure_systolic,blood_pressure_diastolic,fasting_blood_sugar,cholesterol_hdl,cholesterol_ldl,triglycerides,EKG_results,previous_heart_disease,medication_usage,participated_in_free_screening,heart_attack
 59,Female,Urban,High,0,0,175,1,103,1,Past,None,Moderate,Unhealthy,High,Low,5.988455631206125,154,86,127,60,73,176,Normal,0,1,1,0
 64,Female,Urban,Low,0,0,213,1,80,1,Never,Moderate,Moderate,Unhealthy,Moderate,Moderate,6.921989077669573,126,91,70,36,121,74,Abnormal,0,0,0,0
 43,Male,Urban,Middle,0,0,220,1,105,0,Past,None,High,Healthy,Low,Low,7.841536519354705,153,74,121,56,125,237,Abnormal,0,0,1,0

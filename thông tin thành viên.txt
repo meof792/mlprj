@@ -1,0 +1,58 @@
+I. Phân chia công việc giữa kì
+
+1. Bùi Quang Minh - 20000569
+- Data: Thảo luận và thống nhất cùng các thành viên khác
+- Code:
+    + Xây dựng cấu trúc/logic code
+    + Xử lý tiền xử lý dữ liệu (Onehot, chuẩn hóa giá trị)
+    + Xử lý giảm chiều bằng phương pháp LDA
+    + Xử lý với mô hình LinearSVC (dữ liệu gốc và dữ liệu giảm chiều)
+- Báo cáo:
+    + Làm theo các phần đã code và trang bìa
+- Slide:
+    + Làm theo các phần đã code
+
+2. Trần Duy Nam - 22000110
+- Data: Thảo luận và thống nhất cùng các thành viên khác
+- Code:
+    + Xử lý với mô hình Logistic Regression (dữ liệu gốc và dữ liệu giảm chiều)
+- Báo cáo:
+    + Làm theo các phần đã code và trang mục lục
+- Slide:
+    + Làm theo các phần đã code
+
+3. Đinh Thị Minh Hằng - 22001574 (Nhóm trưởng)
+- Data: Thảo luận và thống nhất cùng các thành viên khác
+- Code:
+    + Xử lý tiền xử lý dữ liệu (Đọc dữ liệu, mô tả dữ liệu, xử lý dữ liệu lỗi)
+    + Xử lý giảm chiều bằng phương pháp PCA
+    + Xử lý với mô hình KNN (dữ liệu gốc và dữ liệu giảm chiều)
+- Báo cáo:
+    + Làm theo các phần đã code
+- Slide:
+    + Xây dựng chủ đề slide
+    + Làm theo các phần đã code
+
+II. Phân chia công việc cuối kì
+
+1. Bùi Quang Minh - 20000569 (Nhóm trưởng)
+- Data: Thảo luận và thống nhất cùng các thành viên khác
+- Code:
+    + Chỉnh sửa cấu trúc/logic code cũ từ phần giữa kì
+    + Phân cụm dữ liệu bằng phương pháp GMM
+    + Xử lý code chuyển dổi bài toán về dạng hồi quy
+- Báo cáo:
+    + Góp ý, kiểm tra thông tin trên báo cáo
+- Slide:
+    + Góp ý, kiểm tra thông tin trên slide
+
+2. Trần Duy Nam - 22000110
+- Data: Thảo luận và thống nhất cùng các thành viên khác
+- Code:
+    + Phân cụm dữ liệu bằng phương pháp K-Means
+- Báo cáo:
+    + Sửa lại toàn bộ theo yêu cầu từ giữa kì (100%)
+- Slide:
+    + Sửa lại toàn bộ theo yêu cầu từ giữa kì (100%)
+
+3. Đinh Thị Minh Hằng - 22001574 (Đã thôi học)

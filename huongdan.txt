@@ -1,0 +1,23 @@
+1. chạy các lệnh để cài thư viện
+- Chạy từng dòng trong terminal hoặc gộp lại như sau:
+    pip install numpy pandas scikit-learn matplotlib seaborn tabulate
+- Nếu dùng Jupyter Notebook, thêm ! trước pip:
+    !pip install numpy pandas scikit-learn matplotlib seaborn tabulate
+
+2. hướng dẫn data
+- Nếu chưa tải file `data.csv` trên classroom truy cập link sau để tải:
+    https://drive.google.com/file/d/1d9ykxJC8mOvjdPq3pQDtj48GFs-grXt7/view?usp=sharing
+- File tải về bắt buộc phải có tên là `data.csv`
+- Sau khi tải, di chuyển file `data.csv` vào project (cùng cấp thư mục với file có tên `main.ipynb`)
+
+3. tiến hành chạy code
+- Mở file `main.ipynb` trong danh sách file (`main.ipynb` và `data.csv` là 2 thư mục cùng cấp).
+- Nhấn `Run` từng ô (Shift + Enter) hoặc `Kernel > Restart & Run All` để chạy toàn bộ.
+- Ở cellblock bắt đầu các mô hình, sẽ hiển thị 1 hộp thoại yêu cầu chọn mô hình muốn thực hiện:
+    "Chọn mô hình để chạy (1 = LinearSVC, 2 = Logistic Regression, 3 = KNN, 4 = Thoát): "
+    + Nếu muốn chạy mô hình LinearSVC: ấn số 1 trên bàn phím -> ấn phím Enter
+    + Nếu muốn chạy mô hình Logistic Regression: ấn số 2 trên bàn phím -> ấn phím Enter
+    + Nếu muốn chạy mô hình KNN: ấn số 3 trên bàn phím -> ấn phím Enter
+    + Nếu muốn dừng lại và chạy các khối code tiếp theo: ấn số 4
+    + Vui lòng không bấm các phím khác ngoài các thứ tự đã kể ở trên, không khuyến khích việc dừng cellblock này (ấn số 4) khi chưa thực hiện mô hình nào
+    + Vui lòng không bấm các phím thoát input mặc định của IDE (Esc, Del, Backspace,...)
